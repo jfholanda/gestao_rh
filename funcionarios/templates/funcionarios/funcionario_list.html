@@ -1,0 +1,9 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    List 
+
+    {% for funcionario in object_list %}
+        {{ funcionario.funcionario }}
+    {% endfor %}
+{% endblock %}
