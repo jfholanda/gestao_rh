@@ -1,6 +1,7 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from .models import Funcionario
+from departamentos.models import Departamento
 from django.contrib.auth.models import User
 from unidecode import unidecode
 
@@ -16,6 +17,14 @@ class FuncionariosList(ListView):
 class FuncionarioEdit(UpdateView):
     model = Funcionario
     fields = ['nome', 'departamentos']
+
+    def get_form(self, form_class=None): #Mostrando apenas os departamentos atrelados à empresa do funcionário
+        form = super().get_form(form_class)
+
+        empresa = self.object.empresa
+        form.fields['departamentos'].queryset = Departamento.objects.filter(empresa=empresa)
+
+        return form
 
 class FuncionarioDelete(DeleteView):
     model = Funcionario
