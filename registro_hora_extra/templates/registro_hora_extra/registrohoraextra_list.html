@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block main %}
+    Banco de Hora 
+<br>
+    {% for registro_hora_extra in object_list %}
+        {{ registro_hora_extra }} | Funcionário: {{ registro_hora_extra.funcionario.nome }} -
+        <a href="{% url 'update_hora_extra' registro_hora_extra.id %}">Editar</a>
+        <a href="{% url 'delete_hora_extra' registro_hora_extra.id %}">Excluir</a>
+    {% endfor %}
+<br>
+<a href="{% url 'create_hora_extra' %}" class="btn btn-info">Registrar Hora Extra</a>
+{% endblock %}
