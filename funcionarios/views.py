@@ -20,7 +20,6 @@ class FuncionarioEdit(UpdateView):
 
     def get_form(self, form_class=None): #Mostrando apenas os departamentos atrelados à empresa do funcionário
         form = super().get_form(form_class)
-
         empresa = self.object.empresa
         form.fields['departamentos'].queryset = Departamento.objects.filter(empresa=empresa)
 
@@ -33,6 +32,13 @@ class FuncionarioDelete(DeleteView):
 class FuncionarioNovo(CreateView):
     model = Funcionario
     fields = ['nome', 'departamentos']
+
+    def get_form(self, form_class=None): #Mostrando apenas os departamentos atrelados à empresa do funcionário
+        form = super().get_form(form_class)
+        empresa = self.object.empresa
+        form.fields['departamentos'].queryset = Departamento.objects.filter(empresa=empresa)
+
+        return form
 
     def form_valid(self, form):
         funcionario = form.save(commit=False)

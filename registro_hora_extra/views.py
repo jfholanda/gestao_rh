@@ -3,6 +3,7 @@ from django.db.models.query import QuerySet
 from django.views.generic import ListView, UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy
 from .models import RegistroHoraExtra
+from .forms import RegistroHoraExtraForm
 
 
 class HoraExtraList(ListView):
@@ -24,3 +25,8 @@ class HoraExtraDelete(DeleteView):
 class HoraExtraCreate(CreateView):
     model = RegistroHoraExtra
     fields = ['motivo', 'funcionario', 'horas']
+
+    def get_form_kwargs(self):
+        kwargs = super(HoraExtraCreate, self).get_form_kwargs()
+        kwargs.update({'user': self.request.user})
+        return kwargs
