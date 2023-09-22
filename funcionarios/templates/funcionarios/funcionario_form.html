@@ -34,5 +34,7 @@ Editar
 {% endfor %}
 </ul>
 <br>
-<h3>Total de horas extras: {{ object.total_horas_extra }} horas</h3>
+<h3>Total de horas extras: {{ object.total_horas_extra }} hora(s)</h3>
+<a href="{% url 'create_hora_extra' %}" class="btn btn-success">Adicionar Hora Extra</a>
+
 {% endblock %}
